@@ -3,6 +3,10 @@ const data = [
     { subject: "english", year: 2020, session: "Jan" },
     { subject: "math", year: 2021, session: "Jan" },
     { subject: "english", year: 2022, session: "May" },
+    { subject: "English", year: 2023, session: "May" },
+    { subject: "english", year: 2024, session: "Jan" },
+    { subject: "math", year: 2020, session: "Jan" },
+    { subject: "Physics", year: 2022, session: "May" },
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,12 +18,17 @@ document.addEventListener('DOMContentLoaded', () => {
 function populateDropdowns() {
     const uniqueValues = (key) => [...new Set(data.map(item => item[key].toString().toLowerCase()))];
     populateDropdown('subject', uniqueValues('subject'));
-    populateDropdown('year', uniqueValues('year'));
+    populateDropdown('year', uniqueValues('year').sort((a, b) => a - b)); // Sort years in ascending order
     populateDropdown('session', uniqueValues('session'));
 }
 
 function populateDropdown(id, values) {
     const select = document.getElementById(id);
+    select.innerHTML = ''; // Clear any existing options
+    const allOption = document.createElement('option');
+    allOption.value = '';
+    allOption.textContent = 'All';
+    select.appendChild(allOption);
     values.forEach(value => {
         const option = document.createElement('option');
         option.value = value;
@@ -41,12 +50,15 @@ function filterResults() {
 
     const filteredData = data.filter(({subject: s, year: y, session: se}) =>
         (!subject || s.toLowerCase() === subject) &&
-        (!year || y == year) &&
+        (!year || y.toString() === year) &&
         (!session || se.toLowerCase() === session)
     );
 
+    filteredData.sort((a, b) => a.year - b.year || sessionOrder.indexOf(a.session.toLowerCase()) - sessionOrder.indexOf(b.session.toLowerCase()));
     displayResults(filteredData);
 }
+
+const sessionOrder = ['jan', 'may', 'oct', 'nov'];
 
 function displayResults(results) {
     const resultsContainer = document.getElementById('results');
@@ -54,7 +66,7 @@ function displayResults(results) {
         results.map(({subject, year, session}) => 
             `<div class="result-item">Subject: ${capitalize(subject)}, Year: ${year}, Session: ${capitalize(session)}</div>`
         ).join('') : 
-        'No results found 🗿';
+        'No results found 🗿 try Searching for other papers.';
 }
 
 function capitalize(str) {
