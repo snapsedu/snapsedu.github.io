@@ -3,31 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quick Search</title>
+    <title>Dropdown Filters</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="/logo.png" type="image/x-icon">
 </head>
 <body>
     <div class="container">
-        <h1 id="title">Quick Search</h1>
+        <h1>Select Options</h1>
         <div class="search-container">
-            <label for="subject">Subject:</label>
-            <select id="subject">
-                <option value="">All Subjects</option>
+            <label for="subjectDropdown">Subject:</label>
+            <select id="subjectDropdown">
+                <option value="">--Select Subject--</option>
+                <!-- Options will be populated dynamically -->
             </select>
 
-            <label for="year">Year:</label>
-            <select id="year">
-                <option value="">All Years</option>
+            <label for="yearDropdown">Year:</label>
+            <select id="yearDropdown">
+                <option value="">--Select Year--</option>
+                <!-- Options will be populated dynamically -->
             </select>
 
-            <label for="session">Session:</label>
-            <select id="session">
-                <option value="">All Sessions</option>
+            <label for="sessionDropdown">Session:</label>
+            <select id="sessionDropdown">
+                <option value="">--Select Session--</option>
+                <!-- Options will be populated dynamically -->
+            </select>
+
+            <label for="unitDropdown">Unit:</label>
+            <select id="unitDropdown">
+                <option value="">--Select Unit--</option>
+                <!-- Options will be populated dynamically -->
             </select>
         </div>
-        <div id="results" class="results"></div>
+
+        <div class="results">
+            <!-- Result items will be displayed here -->
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
 </html>
+    

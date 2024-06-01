@@ -1,74 +1,118 @@
-const data = [
-    { subject: "math", year: 2022, session: "May" },
-    { subject: "english", year: 2020, session: "Jan" },
-    { subject: "math", year: 2021, session: "Jan" },
-    { subject: "english", year: 2022, session: "May" },
-    { subject: "English", year: 2023, session: "May" },
-    { subject: "english", year: 2024, session: "Jan" },
-    { subject: "math", year: 2020, session: "Jan" },
-    { subject: "Physics", year: 2022, session: "May" },
-];
+document.addEventListener('DOMContentLoaded', function () {
+    const subjectDropdown = document.getElementById('subjectDropdown');
+    const yearDropdown = document.getElementById('yearDropdown');
+    const sessionDropdown = document.getElementById('sessionDropdown');
+    const unitDropdown = document.getElementById('unitDropdown');
+    const resultsDiv = document.querySelector('.results');
 
-document.addEventListener('DOMContentLoaded', () => {
-    populateDropdowns();
-    attachEventListeners();
-    filterResults(); // Display all results initially
-});
+    let data = [];
+    let allSubjects = new Set();
+    let allYears = new Set();
+    let allSessions = new Set();
+    let allUnits = new Set();
 
-function populateDropdowns() {
-    const uniqueValues = (key) => [...new Set(data.map(item => item[key].toString().toLowerCase()))];
-    populateDropdown('subject', uniqueValues('subject'));
-    populateDropdown('year', uniqueValues('year').sort((a, b) => a - b)); // Sort years in ascending order
-    populateDropdown('session', uniqueValues('session'));
-}
+    // Fetch data from the URL once
+    fetch('https://api.github.com/repos/NazSnippets/NazSnippets.github.io/contents/test')
+        .then(response => response.json())
+        .then(responseData => {
+            // Extract filenames from the data
+            data = responseData.map(file => file.name);
 
-function populateDropdown(id, values) {
-    const select = document.getElementById(id);
-    select.innerHTML = ''; // Clear any existing options
-    const allOption = document.createElement('option');
-    allOption.value = '';
-    allOption.textContent = 'All';
-    select.appendChild(allOption);
-    values.forEach(value => {
-        const option = document.createElement('option');
-        option.value = value;
-        option.textContent = capitalize(value);
-        select.appendChild(option);
+            // Extract unique values for each dropdown
+            data.forEach(filename => {
+                const [year, subject, unit, sessionWithExtension] = filename.split('_');
+                const session = sessionWithExtension.replace('.pdf', '');
+
+                allSubjects.add(subject);
+                allYears.add(year);
+                allSessions.add(session);
+                allUnits.add(unit);
+            });
+
+            // Populate dropdowns with extracted values
+            populateDropdown(subjectDropdown, allSubjects);
+            populateDropdown(yearDropdown, allYears);
+            populateDropdown(sessionDropdown, allSessions);
+            populateDropdown(unitDropdown, ['ALL', ...allUnits]); // Add 'ALL' option
+
+            // Show all results initially
+            displayResults(data);
+        })
+        .catch(error => console.error('Error fetching data:', error));
+
+    // Populate dropdown with options
+    function populateDropdown(dropdown, items) {
+        items.forEach(item => {
+            const option = document.createElement('option');
+            option.value = item;
+            option.textContent = item;
+            dropdown.appendChild(option);
+        });
+    }
+
+    // Add event listener to subject dropdown to handle unit selection and update results
+    subjectDropdown.addEventListener('change', function() {
+        updateUnitDropdown();
+        filterAndDisplayResults();
     });
-}
 
-function attachEventListeners() {
-    document.getElementById('subject').addEventListener('change', filterResults);
-    document.getElementById('year').addEventListener('change', filterResults);
-    document.getElementById('session').addEventListener('change', filterResults);
-}
+    // Function to update unit dropdown based on selected subject
+    function updateUnitDropdown() {
+        const selectedSubject = subjectDropdown.value;
+        unitDropdown.innerHTML = ''; // Clear existing options
 
-function filterResults() {
-    const subject = document.getElementById('subject').value.toLowerCase();
-    const year = document.getElementById('year').value;
-    const session = document.getElementById('session').value.toLowerCase();
+        if (selectedSubject === 'Math') {
+            // Populate with special units for Math
+            const specialUnits = ['M1', 'P1', 'P2', 'S1', 'S2'];
+            populateDropdown(unitDropdown, ['ALL', ...specialUnits]); // Add 'ALL' option
+        } else {
+            // Populate with normal units
+            populateDropdown(unitDropdown, ['ALL', ...allUnits]); // Add 'ALL' option
+        }
+    }
 
-    const filteredData = data.filter(({subject: s, year: y, session: se}) =>
-        (!subject || s.toLowerCase() === subject) &&
-        (!year || y.toString() === year) &&
-        (!session || se.toLowerCase() === session)
-    );
+    // Add event listeners to update results based on selections
+    yearDropdown.addEventListener('change', filterAndDisplayResults);
+    sessionDropdown.addEventListener('change', filterAndDisplayResults);
+    unitDropdown.addEventListener('change', filterAndDisplayResults);
 
-    filteredData.sort((a, b) => a.year - b.year || sessionOrder.indexOf(a.session.toLowerCase()) - sessionOrder.indexOf(b.session.toLowerCase()));
-    displayResults(filteredData);
-}
+    // Filter and display results based on selected values
+    function filterAndDisplayResults() {
+        const selectedSubject = subjectDropdown.value;
+        const selectedYear = yearDropdown.value;
+        const selectedSession = sessionDropdown.value;
+        const selectedUnit = unitDropdown.value;
 
-const sessionOrder = ['jan', 'may', 'oct', 'nov'];
+        const filteredData = data.filter(filename => {
+            const [year, subject, unit, sessionWithExtension] = filename.split('_');
+            const session = sessionWithExtension.replace('.pdf', '');
 
-function displayResults(results) {
-    const resultsContainer = document.getElementById('results');
-    resultsContainer.innerHTML = results.length ? 
-        results.map(({subject, year, session}) => 
-            `<div class="result-item">Subject: ${capitalize(subject)}, Year: ${year}, Session: ${capitalize(session)}</div>`
-        ).join('') : 
-        'No results found 🗿 try Searching for other papers.';
-}
+            return (selectedSubject === "" || selectedSubject === subject) &&
+                   (selectedYear === "" || selectedYear === year) &&
+                   (selectedSession === "" || selectedSession === session) &&
+                   (selectedUnit === "ALL" || selectedUnit === "" || selectedUnit === unit);
+        });
 
-function capitalize(str) {
-    return str.charAt(0).toUpperCase() + str.slice(1);
-}
+        if (filteredData.length === 0) {
+            // Display message when no results are found
+            resultsDiv.innerHTML = '<p>No results found with the selected options.</p>';
+        } else {
+            displayResults(filteredData);
+        }
+    }
+
+    // Display results in the results div
+    function displayResults(filenames) {
+        resultsDiv.innerHTML = ''; // Clear previous results
+        filenames.forEach(filename => {
+            const resultDiv = document.createElement('div');
+            resultDiv.classList.add('result-item');
+            resultDiv.textContent = filename;
+            resultDiv.addEventListener('click', function() {
+                // Redirect when a result is clicked
+                window.location.href = '#'; // Change '#' to your desired URL
+            });
+            resultsDiv.appendChild(resultDiv);
+        });
+    }
+});

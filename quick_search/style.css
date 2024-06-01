@@ -5,11 +5,13 @@ body {
     background-color: #151514;
     color: #dcd1d1;
 }
-#title{
+
+#title {
     font-size: 75px;
 }
+
 .container {
-    max-width: 1800px;
+    max-width: 1200px;  /* Adjusted to a more common maximum width */
     margin: 40px auto;
     padding: 20px;
     background-color: #151514;
@@ -24,7 +26,7 @@ h1 {
 
 .search-container {
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping */
+    flex-wrap: wrap;
     gap: 15px;
     justify-content: center;
     margin-bottom: 20px;
@@ -72,7 +74,7 @@ h1 {
 }
 
 .result-item {
-    flex: 1 1 calc(20.333% - 20px);
+    flex: 1 1 calc(20% - 20px);  /* Adjusted for more consistent spacing */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
