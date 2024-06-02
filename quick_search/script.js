@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
             populateDropdown(subjectDropdown, allSubjects);
             populateDropdown(yearDropdown, allYears);
             populateDropdown(sessionDropdown, allSessions);
-            populateDropdown(unitDropdown, ['ALL', ...allUnits]); // Add 'ALL' option
+            populateDropdown(unitDropdown, ['All', ...allUnits]); // Add 'ALL' option
 
             // Show all results initially
             displayResults(data);
@@ -64,10 +64,10 @@ document.addEventListener('DOMContentLoaded', function () {
         if (selectedSubject === 'Math') {
             // Populate with special units for Math
             const specialUnits = ['M1', 'P1', 'P2', 'S1', 'S2'];
-            populateDropdown(unitDropdown, ['ALL', ...specialUnits]); // Add 'ALL' option
+            populateDropdown(unitDropdown, ['All', ...specialUnits]); // Add 'ALL' option
         } else {
             // Populate with normal units
-            populateDropdown(unitDropdown, ['ALL', ...allUnits]); // Add 'ALL' option
+            populateDropdown(unitDropdown, ['All', ...allUnits]); // Add 'ALL' option
         }
     }
 
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', function () {
             return (selectedSubject === "" || selectedSubject === subject) &&
                    (selectedYear === "" || selectedYear === year) &&
                    (selectedSession === "" || selectedSession === session) &&
-                   (selectedUnit === "ALL" || selectedUnit === "" || selectedUnit === unit);
+                   (selectedUnit === "All" || selectedUnit === "" || selectedUnit === unit);
         });
 
         if (filteredData.length === 0) {
@@ -103,14 +103,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Display results in the results div
     function displayResults(filenames) {
-        resultsDiv.innerHTML = ''; // Clear previous results
+        resultsDiv.innerHTML = '';
         filenames.forEach(filename => {
             const resultDiv = document.createElement('div');
             resultDiv.classList.add('result-item');
             resultDiv.textContent = filename;
             resultDiv.addEventListener('click', function() {
-                // Redirect when a result is clicked
-                window.location.href = '#'; // Change '#' to your desired URL
+                window.location.href = '/reader/index.html?file=2022_Physics_U1_Oct.pdf';
             });
             resultsDiv.appendChild(resultDiv);
         });
