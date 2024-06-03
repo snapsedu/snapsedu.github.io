@@ -3,30 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Advanced PDF Viewer</title>
+    <title>PDF Viewer</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="toolbar">
-        <div>
-            <button id="prev-page">Previous</button>
-            <button id="next-page">Next</button>
+    <div class="container">
+        <div class="ads left-ads">Ads go here</div>
+        <div class="pdf-container">
+            <iframe id="pdf-viewer" src="" frameborder="0"></iframe>
         </div>
-        <div>Page: <span id="page-num"></span> / <span id="page-count"></span></div>
-        <div>
-            <button id="zoom-in">Zoom In</button>
-            <button id="zoom-out">Zoom Out</button>
-        </div>
+        <div class="ads right-ads">Ads go here</div>
     </div>
-    <div class="pdf-container">
-        <div class="thumbnails" id="thumbnails"></div>
-        <div class="pdf-viewer">
-            <canvas id="pdf-render"></canvas>
-        </div>
-    </div>
-    <div class="ads-container" id="ads-container"></div>
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <div class="mobile-ads">Ads go here</div>
     <script src="script.js"></script>
 </body>
 </html>

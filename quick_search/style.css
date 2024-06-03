@@ -63,6 +63,7 @@ h1 {
 }
 
 .results {
+    text-align: center;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
@@ -71,6 +72,15 @@ h1 {
     background: #151514;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+.results a {
+    color: inherit; /* Use the same color as the parent element */
+    text-decoration: none; /* Remove underline */
+    cursor: pointer; /* Change cursor to pointer on hover */
+}
+
+.results a:hover {
+    text-decoration: underline; /* Optional: add underline on hover */
 }
 
 .result-item {

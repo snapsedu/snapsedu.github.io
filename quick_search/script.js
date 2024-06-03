@@ -10,9 +10,8 @@ document.addEventListener('DOMContentLoaded', function () {
     let allYears = new Set();
     let allSessions = new Set();
     let allUnits = new Set();
-
-    // Fetch data from the URL once
-    fetch('https://api.github.com/repos/NazSnippets/NazSnippets.github.io/contents/test')
+    
+    fetch('https://api.github.com/repos/snapsedu/snapsedu.github.io/contents/qp')
         .then(response => response.json())
         .then(responseData => {
             // Extract filenames from the data
@@ -60,16 +59,21 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateUnitDropdown() {
         const selectedSubject = subjectDropdown.value;
         unitDropdown.innerHTML = ''; // Clear existing options
-
+    
         if (selectedSubject === 'Math') {
-            // Populate with special units for Math
-            const specialUnits = ['M1', 'P1', 'P2', 'S1', 'S2'];
-            populateDropdown(unitDropdown, ['All', ...specialUnits]); // Add 'ALL' option
+            // Populate with units that do not start with 'U' for Math
+            const filteredUnits = Array.from(allUnits).filter(unit => !unit.startsWith('U'));
+            populateDropdown(unitDropdown, ['All', ...filteredUnits]); // Add 'ALL' option
+        } else if (selectedSubject !== "") {
+            // Populate with units that start with 'U' for other subjects
+            const filteredUnits = Array.from(allUnits).filter(unit => unit.startsWith('U'));
+            populateDropdown(unitDropdown, ['All', ...filteredUnits]); // Add 'ALL' option
         } else {
-            // Populate with normal units
+            // Populate with all units if no subject or 'All' is selected
             populateDropdown(unitDropdown, ['All', ...allUnits]); // Add 'ALL' option
         }
     }
+    
 
     // Add event listeners to update results based on selections
     yearDropdown.addEventListener('change', filterAndDisplayResults);
@@ -108,10 +112,13 @@ document.addEventListener('DOMContentLoaded', function () {
             const resultDiv = document.createElement('div');
             resultDiv.classList.add('result-item');
             resultDiv.textContent = filename;
+    
             resultDiv.addEventListener('click', function() {
-                window.location.href = '/reader/index.html?file=2022_Physics_U1_Oct.pdf';
+                window.location.href = `https://snapsedu.github.io/qp/${filename}`;
             });
+    
             resultsDiv.appendChild(resultDiv);
         });
     }
+    
 });
