@@ -9,4 +9,4 @@ if (!file) {
 
 // Set the src of the iframe to the PDF file
 const pdfViewer = document.getElementById('pdf-viewer');
-pdfViewer.src = `/qp/${file}`;
+pdfViewer.src = `/qp/AL/${file}`;
