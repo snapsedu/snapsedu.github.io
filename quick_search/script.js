@@ -114,7 +114,7 @@ document.addEventListener('DOMContentLoaded', function () {
             resultDiv.textContent = filename;
     
             resultDiv.addEventListener('click', function() {
-                window.location.href = `https://snapsedu.github.io/qp/${filename}`;
+                window.location.href = `https://snapsedu.github.io/reader/?file=${filename}`;
             });
     
             resultsDiv.appendChild(resultDiv);
