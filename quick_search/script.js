@@ -15,6 +15,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (fileLevel == "OL") {
         document.getElementById('unitlabel').innerText = "Paper: "
+        document.getElementById('searchTitle').innerText = "O Level Quick Search"
+        document.title = "O Level Quick Search" = "A Level Papers Quick Search"
+
     }
 
     fetch(`https://snapsedu.com/api/${fileLevel}.json`)
