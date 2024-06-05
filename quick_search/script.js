@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.getElementById('unitlabel').innerText = "Paper: "
     }
 
-    fetch(`http://127.0.0.1:5500/api/${fileLevel}.json`)
+    fetch(`https://snapsedu.com/api/${fileLevel}.json`)
         .then(response => response.json())
         .then(responseData => {
             data = responseData.map(file => file.name);
