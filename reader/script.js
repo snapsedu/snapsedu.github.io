@@ -6,7 +6,7 @@ if (!fileName) {
     throw new Error('No PDF file specified.');
 }
 if (screen.width <= 699) {
-    window.location.replace(`../qp/${fileName}`);
+    window.location.replace(`../database/qp/${fileName}`);
 }
 
     
