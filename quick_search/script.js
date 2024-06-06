@@ -16,11 +16,12 @@ document.addEventListener('DOMContentLoaded', function () {
     if (fileLevel == "OL") {
         document.getElementById('unitlabel').innerText = "Paper: "
         document.getElementById('searchTitle').innerText = "O Level Quick Search"
-        document.title = "O Level Quick Search" = "A Level Papers Quick Search"
+        document.title = "O Level Quick Search"
 
     }
 
-    fetch(`https://snapsedu.com/api/${fileLevel}.json`)
+
+    fetch(`https://snapsedu.com/database/api/${fileLevel}.json`)
         .then(response => response.json())
         .then(responseData => {
             data = responseData.map(file => file.name);
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', function () {
             resultDiv.textContent = filename;
 
             resultDiv.addEventListener('click', function () {
-                window.location.href = `https://snapsedu.github.io/reader/?file=${filename}`;
+                window.location.href = `/reader/index.html?file=${fileLevel+'/'+filename}`;
             });
 
             resultsDiv.appendChild(resultDiv);
