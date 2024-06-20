@@ -1,3 +1,0 @@
-User-agent: *
-Disallow: /database/
-Sitemap: https://snapsedu.com/sitemap_1.xml

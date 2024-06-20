@@ -6,10 +6,10 @@ if (!fileName) {
     throw new Error('No PDF file specified.');
 }
 if (screen.width <= 699) {
-    window.location.replace(`../database/qp/${fileName}`);
+    window.location.replace(`../QP/${fileName}`);
 }
 
     
 // Set the src of the iframe to the PDF file
 const pdfViewer = document.getElementById('pdf-viewer');
-pdfViewer.src = `../database/qp/${fileName}`;
+pdfViewer.src = `../QP/${fileName}`;
