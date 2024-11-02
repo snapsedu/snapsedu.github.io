@@ -87,6 +87,33 @@ section p {
     margin-bottom: 30px;
     color: #B0B0B0;
 }
+/* CTA Button Style */
+.cta-button {
+    padding: 15px 30px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #121212;
+    background-color: #FFA726;
+    border: 2px solid #FFA726;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.cta-button:hover {
+    background-color: #ffc562; /* Lighter shade on hover */
+    color: #121212; /* Text color remains the same */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35); /* Slightly bigger shadow */
+    transform: translateY(-2px); /* Lift button on hover */
+}
+
+.cta-button:active {
+    transform: translateY(0); /* Return button to original position */
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); /* Reduce shadow on click */
+}
 
 /* Collapsible Links and Papers Styles */
 .collapsible-header {
