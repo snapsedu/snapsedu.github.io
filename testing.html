@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question Papers</title>
+    <link rel="stylesheet" href="./assets/styles/base.css">
+    <link rel="stylesheet" href="./assets/styles/special.css">
+</head>
+
+<body>
+    <snaps-top-nav></snaps-top-nav>
+
+    <main class="container">
+        <section>
+
+            <div id="links-container"></div>
+        </section>
+
+    </main>
+
+    <snaps-bottom-nav></snaps-bottom-nav>
+</body>
+<!-- Script to define the JSON data and load the component -->
+<script>
+    const examData = {
+    subject: "Mathematics",
+    qualification: "O-Level",
+    board: "Cambridge",
+    papers: [
+        {
+            year: 2023,
+            sittings: [
+                {
+                    month: "January",
+                    qp: ["1", "1R", "2", "2R"],
+                    ms: ["1", "1R", "2", "2R"]
+                },
+                {
+                    month: "May",
+                    qp: ["1", "1R", "2", "2R"],
+                    ms: ["1", "1R", "2", "2R"]
+                },
+                {
+                    month: "October",
+                    qp: ["1", "2"],
+                    ms: ["1", "2"]
+                }
+            ]
+        },
+        {
+            year: 2024,
+            sittings: [
+                {
+                    month: "January",
+                    qp: ["1", "2"],
+                    ms: ["1", "2"]
+                }
+            ]
+        }
+    ]
+};
+
+</script>
+<script src="./assets/scripts/base-components.js"></script>
+<script src="./assets/scripts/IAL-components.js"></script>
+
+</html>
