@@ -1,43 +1,8 @@
-
-// const linkTemplate = document.createElement('linkTemplate');
-// linkTemplate.innerHTML = `
-//   <style>
-//     .link {
-//       color: #0066cc;
-//       text-decoration: none;
-//     }
-//   </style>
-//   <a class="link" target="_blank"><slot></slot></a>
-// `;
-
-// class MyLink extends HTMLElement {
-//   constructor() {
-//     super();
-//     this.attachShadow({ mode: 'open' });
-//     this.shadowRoot.appendChild(linkTemplate.content.cloneNode(true));
-//   }
-
-//   connectedCallback() {
-//     const link = this.shadowRoot.querySelector('a');
-//     const text = this.getAttribute('text');
-//     link.href = text;
-//   //   link.textContent = text; //does not change
-//   }
-// }
-
-// customElements.define('my-link', MyLink);
-
-
-
-
-///////////////////////////////////////////////////////////////////
-
-
 class snapsTopNav extends HTMLElement {
   connectedCallback() {
     this.innerHTML = `<header>
     <div class="container">
-      <a href="https://snapsedu.com/" class="logo"><img src="https://snapsedu.com/assets/images/logo.pngsnapsedu.com/images/logo.png" alt="Logo"
+      <a href="https://snapsedu.com/" class="logo"><img src="https://snapsedu.com/assets/images/logo.png" alt="Logo"
           class="logo"></a>
       <nav>
         <ul>
