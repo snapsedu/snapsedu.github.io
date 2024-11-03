@@ -39,7 +39,8 @@ class QuestionPapersComponent extends HTMLElement {
                     paperList.forEach((paper) => {
                         const listItem = document.createElement('li');
                         const link = document.createElement('a');
-                        link.href = `https://snapsedu.com/assets/files/${board}/${qualification}/${subject}/${year}/${month}_${type === "qp" ? "QP" : "MS"}_${paper}.pdf`;
+                        console.log(month.toLowerCase())
+                        link.href = `https://snapsedu.com/assets/files/${board}/${qualification}/${subject}/${year}/${month.toLowerCase()}_${type === "qp" ? "QP" : "MS"}_${paper}.pdf`;
                         link.textContent = `Unit ${paper}`;
                         listItem.appendChild(link);
                         sessionList.appendChild(listItem);
