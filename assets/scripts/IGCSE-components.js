@@ -1,6 +1,6 @@
 class QuestionPapersComponent extends HTMLElement {
     connectedCallback() {
-        const { subject, qualification, board, papers } = examData;
+        const { subject, board, papers } = examData;
 
         papers.forEach(({ year, sittings }) => {
             const yearContainer = document.createElement('div');
@@ -39,7 +39,7 @@ class QuestionPapersComponent extends HTMLElement {
                     paperList.forEach((paper) => {
                         const listItem = document.createElement('li');
                         const link = document.createElement('a');
-                        link.href = `https://snapsedu.com/assets/files/${board}/${qualification}/${subject}/${year}/${month.toLowerCase()}_${type === "qp" ? "QP" : "MS"}_${paper}.pdf`;
+                        link.href = `https://snapsedu.com/assets/files/${board}/IGCSE/${subject}/${year}/${month.toLowerCase()}_${type === "qp" ? "QP" : "MS"}_${paper}.pdf`;
                         link.textContent = `Paper ${paper}`;
                         listItem.appendChild(link);
                         sessionList.appendChild(listItem);
